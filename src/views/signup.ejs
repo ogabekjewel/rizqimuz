@@ -1,0 +1,48 @@
+<%- include('parts/header') %>
+
+<section class="intro">
+    <%- include('components/navbar', { logo: '' }) %>
+    <div class="auth auth-signup">
+        <div class="container">
+            <div class="auth__inner">
+                <form action="/signup" method="POST" class="form" novalidate>
+                    <label class="label">
+                        <span class="text">Ismingiz</span>
+                        <input name="first_name" class="input" type="text" data-input-fname >
+                    </label>
+                    <label class="label">
+                        <span class="text">Familiyangiz</span>
+                        <input name="last_name" class="input" type="text" data-input-lname >
+                    </label>
+                    <label class="label">
+                        <span class="text">Emailingiz</span>
+                        <input name="email" class="input" type="email" data-input-email >
+                    </label>
+                    <label class="label">
+                        <span class="text">Parolingiz</span>
+                        <input name="password" class="input" type="password" data-input-password>
+                    </label>
+                    <div class="label role after-none">
+                        <label>
+                            <input class="input radio" type="radio" name="role" value="employer" data-input-role>
+                            <span class="button button-outline">Ish beruvchi</span>
+                        </label>
+                        <label>
+                            <input class="input radio" type="radio" name="role" value="freelancer" data-input-role>
+                            <span class="button button-outline">Frilanser</span>
+                        </label>
+                    </div>
+                    <div class="submit">
+                        <button class="button button-blue" type="submit" disabled>Ro'yxatdan o'tish</button>
+                    </div>
+                </form>
+                <div class="auth__another">
+                    <span>Oldin ro'yxatdan o'tganmisiz? </span><a href="/signin">Kirish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro__bg"></div>
+</section>
+
+<%- include('parts/footer') %>
