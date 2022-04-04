@@ -29,7 +29,9 @@ module.exports = class AdminController {
             let pendingUsers = await users.find({
                 status: "pending",
             })
-            
+
+            let applicationList = await applications.find()
+
             let technologyList = await technologies.find()
             let messageList = await messages.find()
             let userList = await users.find()
@@ -40,6 +42,7 @@ module.exports = class AdminController {
                 messages: messageList,
                 pending_user: pendingUsers,
                 usersNumber,
+                applications: applicationList,
             })            
         } catch(e) {
             console.log(e)
