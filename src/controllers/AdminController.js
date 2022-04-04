@@ -157,7 +157,7 @@ module.exports = class AdminController {
 
     static async aboutGET(req, res) {
         try {
-            let user_id = req.admin
+            let { user_id } = req.admin
             let user = users.findOne({
                 user_id,   
             })
