@@ -7,7 +7,7 @@ const technologies = require("../models/Technologies")
 const users = require("../models/UserModel")
 const FounderPOSTValidation = require("../validations/FounderPOSTValidation")
 const boardPOSTValidation = require("../validations/boardPOSTValidation")
-const boards = require("../models/Boards")
+const boards = require("../models/Boards")    
 const works = require("../models/UserJobs")
 const portfolios = require("../models/UserPostfolio")
 const languages = require("../models/UserLanguages")
@@ -45,7 +45,7 @@ module.exports = class AdminController {
             console.log(e)
             res.redirect("/404")
         }
-    }
+    }   
     
     static async TechnologyPOST(req, res) {
         let { technology_name } = req.body

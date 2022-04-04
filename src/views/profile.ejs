@@ -12,8 +12,8 @@
                 <div class="profile__avatar">
                     <label for="avatar">
                         <picture>
-                            <source srcset="/img/<%= user.avatar' %>" type="image/webp">
-                            <img srcset="/img/<%= user.avatar' %>">
+                            <source srcset="/img/<%= user.avatar %>" type="image/webp">
+                            <img srcset="/img/<%= user.avatar %>">
                         </picture>
                     </label>
                     <input id="avatar" type="file" class="d-none">
@@ -118,8 +118,7 @@
                                 workersCount: null,
                                 cardType: `${portfolios[i].image}`,
                                 cardLink: `${portfolios[i].link}`,
-                                editable: true
-                                id: `${portfolios[i].id}`,
+                                editable: true,
                             }) %>
                         <% } %>
                     </main>
