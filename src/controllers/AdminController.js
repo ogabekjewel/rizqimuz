@@ -332,13 +332,14 @@ module.exports = class AdminController {
     static async UsersGET(req, res) {
         try {   
             let { email } = req.admin
-            let { c_page, p_page } = req.query
+            let { c_page } = req.query
             
             c_page = c_page || 1  
-            p_page = p_page || 10
+            const p_page = 10
     
             let userList = await users.find().skip(p_page * (c_page - 1)).limit(p_page)
-            
+            let users_count = Math.ceil((await (await users.find()).length)/p_page)
+
             let user = await users.findOne({
                 email,
             })
@@ -351,7 +352,7 @@ module.exports = class AdminController {
                 messages: messageList,
                 users: userList,
                 c_page,
-                p_page,
+                users_count,
             })            
         } catch(e) {
             console.log(e)

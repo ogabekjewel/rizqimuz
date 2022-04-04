@@ -188,10 +188,6 @@ module.exports = class User {
                 email,
             })
 
-            if(!user) {
-                throw new Error("User not found")
-            }
-
             res.redirect(`profile/${user.slug}`)
         } catch(e) {
             console.log(e)
@@ -211,7 +207,7 @@ module.exports = class User {
                 slug,
             })
 
-            if(user.is_verified == false) throw new Error("Emailingizni tasdiqlang")
+            // if(user.is_verified == false) throw new Error("Emailingizni tasdiqlang")
             
             let portfolioList = await portfolios.find({
                 user_id: user.user_id,

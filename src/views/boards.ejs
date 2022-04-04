@@ -79,35 +79,38 @@
                 }) %>
             <% } %>
         </div>
-        <div class="pagination-container">
-            <div id="pagination">
-                <% if(c_page != 1) { %>
-                    <a class="pagination-direction pagination-direction--prev" href="/boards?c_page=<%= Number(c_page) - 1 %>">
-                        <svg width="8" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.828 7l4.95 4.95-1.414 1.414L0 7 6.364.636 7.778 2.05 2.828 7z" fill="#fff"></path></svg></a>
-                <% } %>     
-            <span>
-                <% for(let i = 1; i < boards_count + 1; i++) { %>
-                    <a href="/boards?c_page=<%= i %>" class="<%= c_page == i ? "current" : "" %>"><%= i %></a>
-                <% } %>      
-                <!-- <a>1</a>
-                <a class="current">2</a>
-                <a>3</a>
-                <a>4</a>
-                <a>5</a>
-                <a>6</a>
-                <a>7</a>
-                <a>8</a>
-                <a>9</a>
-                <i>...</i>
-                <a>15</a> -->
-            </span>
-                <% if(c_page != (boards_count)) { %> 
-                    <a class="pagination-direction pagination-direction--next" href="/boards?c_page=<%= Number(c_page) + 1 %>">
-                    <svg width="8" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.172 7L.222 2.05 1.636.636 8 7l-6.364 6.364L.222 11.95 5.172 7z" fill="#fff"></path></svg>
-                    </a>
-                <% } %> 
-            </div>    
-        </div>
+
+        <% if(!(boards_count == "1")) { %>
+            <div class="pagination-container">
+                <div id="pagination">
+                    <% if(c_page != 1) { %>
+                        <a class="pagination-direction pagination-direction--prev" href="/boards?c_page=<%= Number(c_page) - 1 %>">
+                            <svg width="8" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.828 7l4.95 4.95-1.414 1.414L0 7 6.364.636 7.778 2.05 2.828 7z" fill="#fff"></path></svg></a>
+                    <% } %>     
+                <span>
+                    <% for(let i = 1; i < boards_count + 1; i++) { %>
+                        <a href="/boards?c_page=<%= i %>" class="<%= c_page == i ? "current" : "" %>"><%= i %></a>
+                    <% } %>      
+                    <!-- <a>1</a>
+                    <a class="current">2</a>
+                    <a>3</a>
+                    <a>4</a>
+                    <a>5</a>
+                    <a>6</a>
+                    <a>7</a>
+                    <a>8</a>
+                    <a>9</a>
+                    <i>...</i>
+                    <a>15</a> -->
+                </span>
+                    <% if(c_page != (boards_count)) { %> 
+                        <a class="pagination-direction pagination-direction--next" href="/boards?c_page=<%= Number(c_page) + 1 %>">
+                        <svg width="8" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.172 7L.222 2.05 1.636.636 8 7l-6.364 6.364L.222 11.95 5.172 7z" fill="#fff"></path></svg>
+                        </a>
+                    <% } %> 
+                </div>    
+            </div>
+        <% } %>     
     </div>
 </main>
 

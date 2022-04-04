@@ -14,13 +14,13 @@ module.exports = class FreelancersController {
                 email,
             })
 
-            let { c_page, p_page } = req.query
+            let { c_page } = req.query
             
             c_page = c_page || 1
-            p_page = 16
+            let p_page = 12
 
             let freelancerList = await users.find().skip(p_page * (c_page - 1)).limit(p_page)
-            let freelancersNumber = Math.ceil((await (await users.find()).length)/16)
+            let freelancersNumber = Math.ceil((await (await users.find()).length)/p_page)
             res.render("freelancers", {
                 path: "/freelancers",
                 title: "Freelancers || Rizqimuz",

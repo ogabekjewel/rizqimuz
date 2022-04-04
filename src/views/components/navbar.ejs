@@ -41,7 +41,7 @@
             </li>
             <% if (user) { %>
                 <li class="nav__li nav__li--mobile">
-                    <a class="nav__link" href="/<%= user.slug %>"><%= user.first_name + ' ' + user.last_name %></a>
+                    <a class="nav__link" href="/profile/<%= user.slug %>"><%= user.first_name + ' ' + user.last_name %></a>
                 </li>
             <% } else { %>
                 <li class="nav__li nav__li--mobile">
@@ -53,12 +53,12 @@
             </button>
         </ul>
         <% if (user) { %>
-            <a class="user" href="/<%= user.slug %>" title="Shaxsiy profilga kirish">
+            <a class="user" href="/profile/<%= user.slug %>" title="Shaxsiy profilga kirish">
                 <span><%= user.first_name + ' ' + user.last_name %></span>
                 <div class="user-img">
                     <picture>
-                        <source srcset="/img/<%= user.avatar ? user.avatar : '/img/users/user@1x.jpg' %>" type="image/webp">
-                        <img srcset="/img/<%= user.avatar ? user.avatar : '/img/users/user@1x.jpg' %>">
+                        <source srcset="/img/<%= user.avatar %>" type="image/webp">
+                        <img srcset="/img/<%= user.avatar %>">
                     </picture>
                 </div>
             </a>

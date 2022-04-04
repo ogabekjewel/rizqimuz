@@ -20,12 +20,15 @@ module.exports = class BoardsController {
             let { c_page, p_page } = req.query
             
             c_page = c_page || 1
-            p_page = 16
+            p_page = 12
 
             const boardList = await boards.find({
                 finished: false
             }).skip(p_page * (c_page - 1)).limit(p_page)
-            const boardsCount = Math.ceil((await (await boards.find()).length)/16)
+            
+            const boardsCount = Math.ceil((await (await boards.find({
+                finished: false
+            })).length)/p_page)
 
             res.render("boards", {
                 title: "E'lonlar | Rizqim",
