@@ -10,13 +10,17 @@ const LanguageSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
+    language: {
         type: String,
         required: true,
     },
+    degree: {
+        type: String,
+        required: true,
+    }
     
 }) 
 
-const languages = mongoose.model("portfolis", LanguageSchema)
+const languages = mongoose.model("languages", LanguageSchema)
 
 module.exports = languages

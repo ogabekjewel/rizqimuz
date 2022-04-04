@@ -1,25 +1,24 @@
 const mongoose = require("mongoose")
 
-const WorkSchema = mongoose.Schema({
-    id: {
+const FounderSchema = new mongoose.Schema({
+    founder_id: {
         type: String,
-        required: true,
         unique: true,
+        required: true,
     },
-    user_id: {
+    first_name: {
         type: String,
         required: true,
     },
-    name: {
+    last_name: {
         type: String,
         required: true,
     },
-    about: {
+    image: {
         type: String,
-        required: true,
     }
-}) 
+})
 
-const works = mongoose.model("works", WorkSchema)
+const founders = mongoose.model("founders", FounderSchema)
 
-module.exports = works
+module.exports = founders

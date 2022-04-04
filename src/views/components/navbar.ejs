@@ -57,8 +57,8 @@
                 <span><%= user.first_name + ' ' + user.last_name %></span>
                 <div class="user-img">
                     <picture>
-                        <source srcset="/img/users/user@1x.webp 1x, /img/users/user@2x.webp 2x" type="image/webp">
-                        <img srcset="/img/users/user@1x.jpg 1x, /img/users/user@2x.jpg 2x">
+                        <source srcset="/img/<%= user.avatar ? user.avatar : '/img/users/user@1x.jpg' %>" type="image/webp">
+                        <img srcset="/img/<%= user.avatar ? user.avatar : '/img/users/user@1x.jpg' %>">
                     </picture>
                 </div>
             </a>

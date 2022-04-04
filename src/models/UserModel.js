@@ -33,16 +33,14 @@ const UserSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        unique: true,
     },
     telegram_username: {
         type: String,
-        unique: true,
     },
-    bio : {   
+    description : {   
         type: String,
     },
-    role: {
+    role: {   
         type: String,
         required: true,
     },
@@ -55,7 +53,15 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false,
-    },    
+    }, 
+    status: {
+        type: String,
+        default: "pending",
+    },
+    top: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const users = mongoose.model("users", UserSchema)

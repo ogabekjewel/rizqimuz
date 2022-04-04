@@ -32,16 +32,18 @@
             <div class="slider-1 splide">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide">
-                            <%- include('components/card', {
-                                cardTitle: 'Web dasturchilar kerak',
-                                viewsCount: 146,
-                                workersCount: 23,
-                                cardType: 'bot',
-                                cardLink: '/posts/1',
-                                editable: false
-                            }) %>
-                        </li>
+                        <% for(let board of top_boards) { %>
+                            <li class="splide__slide">
+                                <%- include('components/card', {
+                                    cardTitle: `${board.name}`,
+                                    viewsCount: board.views,
+                                    workersCount: board.applications,
+                                    cardType: `${board.image}`,
+                                    cardLink: `/boards/${board.slug}`,
+                                    editable: false
+                                }) %> 
+                            </li>
+                        <% } %>      
                     </ul>
                 </div>
             </div>
@@ -61,22 +63,24 @@
             <div class="top-freelancers splide">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide">
-                            <div class="freelancer__card" title="Muhammadjavohir Suratov">
-                                <div class="freelancer__img">
-                                    <picture>
-                                        <source srcset="/img/users/user@1x.webp 1x, /img/users/user@2x.webp 2x"
-                                                type="image/webp">
-                                        <img srcset="/img/users/user@1x.jpg 1x, /img/users/user@2x.jpg 2x">
-                                    </picture>
+                        <% for(let freelancer of top_freelancers) { %>
+                            <li class="splide__slide">
+                                <div class="freelancer__card" title="Muhammadjavohir Suratov">
+                                    <div class="freelancer__img">
+                                        <picture>
+                                            <source srcset="/img<%= freelancer.avatar %> 1x, /img<%= freelancer.avatar %> 2x">
+                                            <img srcset="/img<%= freelancer.avatar %> 1x, /img<%= freelancer.avatar %> 2x"
+                                                 alt="sponsor logo">
+                                        </picture>
+                                    </div>
+                                    <div class="freelancer__info">
+                                        <h3 class="freelancer__name"><%= freelancer.first_name %> <%= freelancer.last_name %> </h3>
+                                        <span class="freelancer__level">Senior Developer</span>
+                                    </div>
+                                    <a class="card__link" href="/freelancers/<%= freelancer.slug %> ">Card Link</a>
                                 </div>
-                                <div class="freelancer__info">
-                                    <h3 class="freelancer__name">Og'abek Sultonbayev</h3>
-                                    <span class="freelancer__level">Senior Developer</span>
-                                </div>
-                                <a class="card__link" href="/freelancers/sultonbayevogabek">Card Link</a>
-                            </div>
-                        </li>
+                            </li>
+                        <% } %>      
                     </ul>
                 </div>
             </div>
@@ -96,26 +100,18 @@
             <div class="slider-2 splide">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide">
-                            <%- include('components/card', {
-                                cardTitle: 'ABM',
-                                viewsCount: 146,
-                                workersCount: null,
-                                cardType: 'frontend',
-                                cardLink: '/posts/1',
-                                editable: false
-                            }) %>
-                        </li>
-                        <li class="splide__slide">
-                            <%- include('components/card', {
-                                cardTitle: 'Harward',
-                                viewsCount: 146,
-                                workersCount: null,
-                                cardType: 'frontend',
-                                cardLink: '/posts/1',
-                                editable: false
-                            }) %>
-                        </li>
+                        <% for(let board of finish_boards) { %> 
+                            <li class="splide__slide">
+                                <%- include('components/card', {
+                                    cardTitle: `${board.name}`,
+                                    viewsCount: board.views,
+                                    workersCount: null,
+                                    cardType: `${board.image}`,
+                                    cardLink: `/boards/${board.slug}`,
+                                    editable: false
+                                }) %>
+                            </li>  
+                        <% } %> 
                     </ul>
                 </div>
             </div>
@@ -135,16 +131,19 @@
             <div class="slider-3 splide">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide">
-                            <div class="sponsors__card">
-                                <picture>
-                                    <source srcset="/img/sponsors/uber1x.webp 1x, /img/sponsors/uber2x.webp 2x">
-                                    <img srcset="/img/sponsors/uber1x.png 1x, /img/sponsors/uber2x.png 2x"
-                                         alt="sponsor logo">
-                                </picture>
-                                <a class="sponsors__link" href="https://uber.com" target="_blank">Uber</a>
-                            </div>
-                        </li>
+                        <% for(let sponsor of sponsors) { %>
+                            <li class="splide__slide">
+                                <div class="sponsors__card">
+                                    <picture>
+                                        <source srcset="/img<%= sponsor.image %> 1x, /img<%= sponsor.image %> 2x">
+                                        <img srcset="/img<%= sponsor.image %> 1x, /img<%= sponsor.image %> 2x"
+                                             alt="sponsor logo">
+                                    </picture>
+                                    
+                                    <a class="sponsors__link" href="<%= sponsor.link %> ">Uber</a>
+                                </div>
+                            </li>
+                        <% } %>     
                     </ul>
                 </div>
             </div>
@@ -163,7 +162,7 @@
         <main class="section__main">
             <div class="statistics">
                 <div class="statistics__card">
-                    <strong class="statistics__value">134</strong>
+                    <strong class="statistics__value"><%= freelancers.length %> </strong>
                     <h3 class="statistics__title">Ish izlayotganlar</h3>
                     <img class="statistics__icon" src="/img/icons/statistic-1.svg" alt="statistic icon">
                 </div>
@@ -173,12 +172,12 @@
                     <img class="statistics__icon" src="/img/icons/statistic-2.svg" alt="statistic icon">
                 </div>
                 <div class="statistics__card">
-                    <strong class="statistics__value">67</strong>
+                    <strong class="statistics__value"><%= finish_boards.length %> </strong>
                     <h3 class="statistics__title">Tugallangan loyihalar</h3>
                     <img class="statistics__icon" src="/img/icons/statistic-3.svg" alt="statistic icon">
                 </div>
                 <div class="statistics__card">
-                    <strong class="statistics__value">121</strong>
+                    <strong class="statistics__value"><%= boards.length %> </strong>
                     <h3 class="statistics__title">Mavjud loyihalar</h3>
                     <img class="statistics__icon" src="/img/icons/statistic-4.svg" alt="statistic icon">
                 </div>

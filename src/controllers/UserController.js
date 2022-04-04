@@ -4,18 +4,40 @@ const Path = require("path")
 const users = require("../models/UserModel")
 const SendMail = require("../modules/email")
 const { PORT } = require("../../config")
-const { generateToken } = require("../../../ecommerce_fronted/src/modules/jwt")
-const { generateHash } = require("../../../ecommerce_fronted/src/modules/bcrypt")
+const { generateToken } = require("../modules/jwt")
+const { generateHash } = require("../modules/bcrypt")
 const { v4 } = require("uuid")
 const SignInValidation = require("../validations/SignInValidation")
 const { compareHash } = require("../modules/bcrypt")
 const { checkToken } = require("../modules/jwt")
+const portfolios = require("../models/UserPostfolio")
+const EducationPOSTValidation = require("../validations/EducationPOSTValidation")
+const education = require("../models/UserStudy")
+const JobPOSTValidation = require("../validations/JobPOSTValidation")
+const works = require("../models/UserJobs")
+const languages = require("../models/UserLanguages")
+const LangPOSTValidation = require("../validations/LangPOSTValidation")
 
 module.exports = class User {
     static async SignUpGET(req, res) {
-        res.render("signup", {
-            title: "Sign Up || Rizqimuz",
-        })
+        try {
+            let { token } = req.cookies
+
+            token = await checkToken(token)
+    
+            const { email } = token
+             
+            const user = await users.findOne({
+                email,
+            })
+    
+            res.render("signup", {
+                title: "Sign Up || Rizqimuz",
+                user,
+            })            
+        } catch(e) {
+            res.redirect("/404")
+        }
     }
 
     static async SignUpPOST(req, res) {
@@ -27,7 +49,7 @@ module.exports = class User {
             })
     
             if(user) {
-                res.redirect("/login")
+                res.redirect("/signin")
                 return
             }
     
@@ -43,7 +65,7 @@ module.exports = class User {
             
             if(slugFind) {
                 let random = Math.random() * 10
-                slug = `slug${random}`
+                slug = `${slug}${random}`
             }
     
             let pass = await generateHash(password)
@@ -58,9 +80,7 @@ module.exports = class User {
                 role
             })
     
-            console.log(user)
-    
-            let token = generateToken({
+            let token = await generateToken({
                 ...user._doc,
                 pass: undefined,
             })
@@ -96,9 +116,24 @@ module.exports = class User {
     }
 
     static async SignInGET(req, res) {
-        res.render("signin", {
-            title: "Sign in || Rizqimuz"
-        })
+        try {
+            let { token } = req.cookies
+
+            token = await checkToken(token)
+    
+            const { email } = token
+             
+            const user = await users.findOne({
+                email,
+            })
+    
+            res.render("signin", {
+                title: "Sign in || Rizqimuz",
+                user,
+            })
+        } catch(e) {
+            res.redirect("/404")
+        }
     }
 
     static async SignInPOST(req, res) {
@@ -110,7 +145,7 @@ module.exports = class User {
             })
             
             if(!email) {
-                res.redirect("signup")
+                res.redirect("/signup")
                 return
             }
     
@@ -120,7 +155,7 @@ module.exports = class User {
                 throw new Error("Parolingiz xato qayta urinib ko'ring")
             }
     
-            let token = generateToken({
+            let token = await generateToken({
                 ...user._doc,
                 pass: undefined,
             })   
@@ -140,10 +175,10 @@ module.exports = class User {
             let { token } = req.cookies
 
             if(!token) {
-                res.redirect("/login")
+                res.redirect("/signin")
                 return
             }
-
+            
             token = await checkToken(token)
             
             let { email } = token
@@ -152,8 +187,13 @@ module.exports = class User {
                 email,
             })
 
+            if(!user) {
+                throw new Error("User not found")
+            }
+
             res.redirect(`profile/${user.slug}`)
         } catch(e) {
+            console.log(e)
             res.render("404", {
                 ok: false,
                 message: e + "",
@@ -172,11 +212,31 @@ module.exports = class User {
 
             if(user.is_verified == false) throw new Error("Emailingizni tasdiqlang")
             
+            let portfolioList = await portfolios.find({
+                user_id: user.user_id,
+            })
+
+            let educationList = await education.find({
+                user_id: user.user_id,
+            })
+
+            let WorkList = await works.find({
+                user_id: user.user_id,
+            })
+
+            let langList = await languages.find({
+                user_id: user.user_id,
+            })
+                    
             res.render("profile", {
                 title: `${user.first_name} ${user.last_name} || Rizqimuz`,
-                user
+                user,
+                portfolios: portfolioList,
+                education: educationList,
+                works: WorkList,
+                languages: langList
             })            
-        } catch(e) {
+        } catch(e) {      
             res.render("404", {    
                 title: `|| 404`,
                 message: e + "",
@@ -190,8 +250,8 @@ module.exports = class User {
 
             let { token } = req.cookies
 
-            let email = checkToken(token)
-
+            token = await checkToken(token)
+            let { email } = token
             let imageType = photo.mimetype.split("/")[0]
             let imageFormat = photo.mimetype.split("/")[1]
             let imageName = photo.md5
@@ -203,9 +263,9 @@ module.exports = class User {
                 let user =  await users.findOneAndUpdate({
                     email,
                 }, {
-                    avatar: imagePath,
+                    avatar: `/users/${imageName}.${imageFormat}`,
                 })
-                console.log(user)
+                
             } else {
                 throw new Error("Image type 'image' or 'vector'") 
             }
@@ -214,14 +274,162 @@ module.exports = class User {
                 ok: true,
             })
         } catch(e) {
+            console.log(e)
             res.status(400).json({
                 ok: false,
                 message: e + "",
             }) 
         }
+    }
+
+    static async ProfilePOST(req, res) {
+        let { first_name, last_name, phone, email, telegram_username, description } = req.body
+
+        let user = req.user
+          
+        if(email) {    
+            await SendMail(       
+                email, 
+                `Verification link`, 
+                "Email verification", 
+                `<p><a href="http://localhost:${PORT}/verify/${user.user_id}">Click here</a> to activate you account</p>`
+            )
+
+            res.redirect("/404")   
+            return
+        }
+
+        await users.findOneAndUpdate({
+            user,
+        }, {
+            first_name,
+            last_name,
+            phone,
+            email,
+            telegram_username,
+            description,
+        })
+
+        res.redirect("/profile")
+    }
+
+    static async PortfolioPOST(req, res) {
+        try {
+            let { project_name, project_link} = req.body
+            let { portfolio_img } = req.files
+    
+            let user = req.user   
+    
+            let imageType = portfolio_img.mimetype.split("/")[0]
+            let imageFormat = portfolio_img.mimetype.split("/")[1]
+            let imageName = portfolio_img.md5
+    
+            if(imageType === "image" || imageType === "vector") {
+                let imagePath = Path.join(__dirname, "..", "public", "img", "posting-images", `${imageName}.${imageFormat}`)
+    
+                await portfolio_img.mv(imagePath)
+                console.log(true)
+                await portfolios.create({
+                    id: v4(),
+                    user_id: user.user_id,
+                    name: project_name,
+                    link: project_link, 
+                    image: `/posting-images/${imageName}.${imageFormat}`,
+                })
+            } else {
+                throw new Error("Image type 'image' or 'vector'") 
+            }
+    
+            res.redirect("/profile")
+        } catch(e) {
+            console.log(e)
+            res.status(400).json({
+                ok: false,
+            })
+        }
+
+    }
+
+    static async EducationPOST(req, res) {
+        try {
+            const { education_name, education_direction, about, start_year, start_month, end_year, end_month  } = await EducationPOSTValidation(req.body)
+        
+            const user = req.user
+            
+            await education.create({
+                id: v4(),   
+                user_id: user.user_id,  
+                name: education_name,   
+                direction: education_direction,
+                about,
+                start_year,
+                start_month,
+                end_year,
+                end_month
+            })
+
+            res.status(200).json({
+                ok: true,
+            })
+        } catch(e) {
+            res.status(400).json({
+                ok: false,
+            })
+        }
 
 
     }
 
+    static async JobPOST(req, res) {
+        try {
+            const { job_place, job_name, start_year, start_month, end_year, end_month, about} = await JobPOSTValidation(req.body)
 
+            const user = req.user
+    
+            let work = await works.create({
+                id: v4(),   
+                user_id: user.user_id,
+                job_place, 
+                job_name, 
+                about, 
+                start_year, 
+                end_year, 
+                start_month, 
+                end_month,
+            })  
+            console.log(work)
+            
+            res.status(200).json({
+                ok: true,
+            })
+        } catch(e) {
+            console.log(e)
+            res.status(400).json({
+                ok: false,
+            })
+        }
+    }
+
+    static async LangPOST(req, res) {
+       try {
+            const { language, degree } = await LangPOSTValidation(req.body)
+
+            const user = req.user
+
+            await languages.create({
+                id: v4(),
+                user_id: user.user_id,
+                language,
+                degree,
+            })
+
+            res.status(200).json({
+                ok: true,
+            })                   
+       } catch(e) {
+           res.status(400).json({
+               ok: false
+           })
+       }
+    }
 }

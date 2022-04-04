@@ -15,7 +15,9 @@ const openModal = () => {
 
 const closeModal = () => {
     const modal = selectOne('.modal'),
-        modalContent = selectOne('.modal__content'),
+        modalContent = selectOne('.modal__content')
+
+        
     modalContent.style.cssText = `
         opacity: 0;
         transform: scale(0);

@@ -1,26 +1,100 @@
 <!--ism, familiya-->
-<div class="modal d-none">
+<div id="bio_input" class="modal d-none">
     <div class="modal__content">
         <div class="modal__inner">
             <h2 class="modal__heading">Ism, familiya</h2>
-            <form class="modal__form form">
+            <form action="/profile" method="post" class="modal__form form">
                 <div class="modal__field">
                     <label class="modal__label label">
                         <span class="d-none">Ism</span>
-                        <input class="modal__input input" type="text" placeholder="Ism" data-input-fname>
+                        <input name="first_name" class="modal__input input" type="text" placeholder="Ism" data-input-fname>
                     </label>
                     <label class="modal__label label">
                         <span class="d-none">Familiya</span>
-                        <input class="modal__input input" type="text" placeholder="Familiya" data-input-lname>
+                        <input name="last_name" class="modal__input input" type="text" placeholder="Familiya" data-input-lname>
                     </label>
                 </div>
                 <div class="modal__submit">
-                    <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
+                    <button id="bio_close" class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
                     <button class="button button-blue" type="submit">Yangilash</button>
                 </div>
             </form>
         </div>
-        <button class="modal__close" data-modal-close>
+        <button id="bio_close_button" class="modal__close" data-modal-close>
+            <img src="/img/icons/close-modal.svg" alt="close modal icon">
+        </button>
+    </div>
+</div>
+
+<!-- telefon raqami -->
+<div id="bio_input" class="modal d-none">
+    <div class="modal__content">
+        <div class="modal__inner">
+            <h2 class="modal__heading">Telefon raqam</h2>
+            <form action="/profile" method="post" class="modal__form form">
+                <div class="modal__field">
+                    <label class="modal__label label">
+                        <span class="d-none">+998 (99)999 99 99</span>
+                        <input name="phone" class="modal__input input" type="text" placeholder="+998 (99)999 99 99" data-input-phone>
+                    </label>
+                </div>
+                <div class="modal__submit">
+                    <button id="bio_close" class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
+                    <button class="button button-blue" type="submit">Yangilash</button>
+                </div>
+            </form>
+        </div>
+        <button id="bio_close_button" class="modal__close" data-modal-close>
+            <img src="/img/icons/close-modal.svg" alt="close modal icon">
+        </button>
+    </div>
+</div>
+
+
+<!-- elektron pochta -->
+<div id="bio_input" class="modal d-none">
+    <div class="modal__content">
+        <div class="modal__inner">
+            <h2 class="modal__heading">Elektron pochta</h2>
+            <form action="/profile" method="post" class="modal__form form">
+                <div class="modal__field">
+                    <label class="modal__label label">
+                        <span class="d-none">rizqimuz@gmail.com</span>
+                        <input name="email" class="modal__input input" type="text" placeholder="rizqimuz@gmail.com" data-input-email>
+                    </label>
+                </div>
+                <div class="modal__submit">
+                    <button id="bio_close" class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
+                    <button id="update" class="button button-blue" type="submit">Yangilash</button>
+                </div>
+            </form>
+        </div>
+        <button id="bio_close_button" class="modal__close" data-modal-close>
+            <img src="/img/icons/close-modal.svg" alt="close modal icon">
+        </button>
+    </div>
+</div>
+
+
+<!-- telegram username -->
+<div id="bio_input" class="modal d-none">
+    <div class="modal__content">
+        <div class="modal__inner"> 
+            <h2 class="modal__heading">Telegram username</h2>
+            <form action="/profile" method="post" class="modal__form form">
+                <div class="modal__field">
+                    <label class="modal__label label">
+                        <span class="d-none">@lazy_developer</span>
+                        <input name="telegram_username" class="modal__input input" type="text" placeholder="@lazy_developer">
+                    </label>
+                </div>
+                <div class="modal__submit">
+                    <button id="bio_close" class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
+                    <button id="update" class="button button-blue" type="submit">Yangilash</button>
+                </div>
+            </form>
+        </div>
+        <button id="bio_close_button" class="modal__close" data-modal-close>
             <img src="/img/icons/close-modal.svg" alt="close modal icon">
         </button>
     </div>
@@ -30,8 +104,8 @@
 <div class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">O'zingiz haqingizda</h2>
-        <form class="modal__form form">
-            <textarea class="textarea modal__textarea" id="textarea" placeholder="O'zingiz haqingizda ma'lumot kiriting"></textarea>
+        <form action="/profile" method="post" class="modal__form form">
+            <textarea name="description" class="textarea modal__textarea" id="textarea" placeholder="O'zingiz haqingizda ma'lumot kiriting"></textarea>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
                 <button class="button button-blue" type="submit">Yangilash</button>
@@ -51,22 +125,22 @@
             <label class="label valid after-none">
                 <span class="text">Loyihani tasvirlovchi rasm(.png yoki .jpg formatda, hajmi 1Mb gacha bo'lgan bitta rasm)</span>
                 <span class="button button-outline" type="button">Rasm qo'shish</span>
-                <input class="d-none" type="file" id="modal" accept=".png, .jpg">
+                <input id="portfolio_img" type="file" class="d-none" type="file" id="modal" accept=".png, .jpg">
             </label>
             <div class="modal__preview"></div>
             <div class="modal__field">
                 <label class="label">
                     <span class="text">Loyiha nomi</span>
-                    <input class="input modal__input" type="text" placeholder="Loyiha nomi" data-input-project-name>
+                    <input name="project_name" id="project_name" class="input modal__input" type="text" placeholder="Loyiha nomi" data-input-project-name>
                 </label>
                 <label class="label">
                     <span class="text">Loyiha uchun havola</span>
-                    <input class="input modal__input" type="url" placeholder="Loyiha nomi" data-input-project-link>
+                    <input name="project_link" id="project_link" class="input modal__input" type="url" placeholder="Loyiha nomi" data-input-project-link>
                 </label>
             </div>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button class="button button-blue" type="submit" disabled>Yangilash</button>
+                <button id="portfolio_btn" class="button button-blue" type="submit" >Yangilash</button>
             </div>
         </form>
         <button class="modal__close" data-modal-close>
@@ -75,151 +149,30 @@
     </div>
 </div>
 
-<!--o'qish joyi modali-->
-<div class="modal d-none">
-    <div class="modal__content">
-        <h2 class="modal__heading">Ta'lim</h2>
-        <form class="modal__form form">
-            <div class="modal__field">
-                <label class="label">
-                    <span class="text">O'qigan joyingiz nomi</span>
-                    <input class="input modal__input" type="text" placeholder="O'qigan joyingiz nomi" data-input-project-name>
-                </label>
-                <label class="label">
-                    <span class="text">Qaysi yo'nalish bo'yicha o'qigansiz?</span>
-                    <input class="input modal__input" type="url" placeholder="Loyiha nomi" data-input-project-link>
-                </label>
-            </div>
-            <div class="modal__field modal__field__4">
-                <label class="label after-none">
-                    <span class="text">O'qish boshlangan yil</span>
-                    <div class="select modal__select">
-                        <div class="select__selected"></div>
-                        <ul class="select__list d-none">
-                            <% for (let i = 1990; i <= new Date().getFullYear(); i ++) { %>
-                                <li class="select__item"><%= i %></li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </label>
-                <label class="label after-none">
-                    <span class="text">Oy</span>
-                    <div class="select modal__select">
-                        <div class="select__selected"></div>
-                        <ul class="select__list d-none">
-                            <li class="select__item">yanvar</li>
-                            <li class="select__item">fevral</li>
-                            <li class="select__item">mart</li>
-                            <li class="select__item">aprel</li>
-                            <li class="select__item">may</li>
-                            <li class="select__item">iyun</li>
-                            <li class="select__item">iyul</li>
-                            <li class="select__item">avgust</li>
-                            <li class="select__item">sentabr</li>
-                            <li class="select__item">oktabr</li>
-                            <li class="select__item">noyabr</li>
-                            <li class="select__item">dekabr</li>
-                        </ul>
-                    </div>
-                </label>
-                <label class="label after-none">
-                    <span class="text">O'qish tugagan yil</span>
-                    <div class="select modal__select">
-                        <div class="select__selected"></div>
-                        <ul class="select__list d-none">
-                            <% for (let i = 1990; i < new Date().getFullYear(); i ++) { %>
-                                <li class="select__item"><%= i %></li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </label>
-                <label class="label after-none">
-                    <span class="text">Oy</span>
-                    <div class="select modal__select">
-                        <div class="select__selected"></div>
-                        <ul class="select__list d-none">
-                            <li class="select__item">yanvar</li>
-                            <li class="select__item">fevral</li>
-                            <li class="select__item">mart</li>
-                            <li class="select__item">aprel</li>
-                            <li class="select__item">may</li>
-                            <li class="select__item">iyun</li>
-                            <li class="select__item">iyul</li>
-                            <li class="select__item">avgust</li>
-                            <li class="select__item">sentabr</li>
-                            <li class="select__item">oktabr</li>
-                            <li class="select__item">noyabr</li>
-                            <li class="select__item">dekabr</li>
-                        </ul>
-                    </div>
-                </label>
-            </div>
-            <label class="modal__label label valid after-none">
-                <span class="text">O'qigan joyingiz haqida yozing</span>
-                <textarea class="textarea modal__textarea" id="textarea" placeholder="O'qigan joyingiz haqida yozing"></textarea>
-            </label>
-            <div class="modal__submit">
-                <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button class="button button-blue" type="submit" disabled>Yangilash</button>
-            </div>
-        </form>
-        <button class="modal__close" data-modal-close>
-            <img src="/img/icons/close-modal.svg" alt="close modal icon">
-        </button>
-    </div>
-</div>
+<script>
+    let portfolio_img = document.querySelector("#portfolio_img") 
+    let project_name = document.querySelector("#project_name")
+    let project_link = document.querySelector("#project_link")
+    let portfolio_btn = document.querySelector("#portfolio_btn")
 
-<!--til qo'shish modali-->
-<div class="modal d-none">
-    <div class="modal__content">
-        <h2 class="modal__heading">Biladigan tillaringiz</h2>
-        <form class="modal__form form">
-            <div class="modal__field">
-                <label class="label after-none">
-                    <span class="text">Tilni tanlang</span>
-                    <div class="select modal__select">
-                        <div class="select__selected"></div>
-                        <ul class="select__list d-none">
-                            <li class="select__item">Ingliz tili</li>
-                            <li class="select__item">Rus tili</li>
-                            <li class="select__item">Koreys tili</li>
-                            <li class="select__item">Xitoy tili</li>
-                            <li class="select__item">Arab tili</li>
-                            <li class="select__item">Yapon tili</li>
-                        </ul>
-                    </div>
-                </label>
-                <label class="label after-none">
-                    <span class="text">Shu tilni bilish darajangiz</span>
-                    <div class="select modal__select">
-                        <div class="select__selected"></div>
-                        <ul class="select__list d-none">
-                            <li class="select__item">Tushunaman</li>
-                            <li class="select__item">Hujjatlarni o'qib tushunaman</li>
-                            <li class="select__item">Gaplasha olaman</li>
-                        </ul>
-                    </div>
-                </label>
-            </div>
-            <div>
-                <button class="add-language" type="button" title="Til qo'shish">
-                    <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 6V0h2v6h6v2H8v6H6V8H0V6h6Z" fill="#C6D4FF"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal__submit">
-                <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button class="button button-blue" type="submit" disabled>Yangilash</button>
-            </div>
-        </form>
-        <button class="modal__close" data-modal-close>
-            <img src="/img/icons/close-modal.svg" alt="close modal icon">
-        </button>
-    </div>
-</div>
+    portfolio_btn.addEventListener("click", async (e) => {
+        let file = portfolio_img.files[0]
+        let formData = new FormData()
+        
+        formData.append("portfolio_img", file)
+        formData.append("project_name", project_name.value)
+        formData.append("project_link", project_link.value)
 
-<!--o'qish joyi modali-->
+        console.log(formData)
+        let response = await fetch(`/profile/portfolio`, {
+            method: "POST",
+            body: formData,     
+        })
+    })
+</script>
+
+
+<!--Ish joyi modali-->
 <div class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Ishlagan joylaringiz</h2>
@@ -227,18 +180,18 @@
             <div class="modal__field">
                 <label class="label">
                     <span class="text">Ishlagan joyingiz nomi</span>
-                    <input class="input modal__input" type="text" placeholder="Ishlagan joyingiz nomi" data-input-project-name>
+                    <input id="job_place" class="input modal__input" type="text" placeholder="Ishlagan joyingiz nomi">
                 </label>
                 <label class="label">
                     <span class="text">Kim bo'lib ishlagansiz?</span>
-                    <input class="input modal__input" type="url" placeholder="Kim bo'lib ishlagansiz?" data-input-project-link>
+                    <input id="job_name" class="input modal__input" type="text" placeholder="Kim bo'lib ishlagansiz?">
                 </label>
             </div>
             <div class="modal__field modal__field__4">
                 <label class="label after-none">
                     <span class="text">Ish boshlangan yil</span>
                     <div class="select modal__select">
-                        <div class="select__selected"></div>
+                        <div id="job_start_year" class="select__selected"></div>
                         <ul class="select__list d-none">
                             <% for (let i = 1990; i <= new Date().getFullYear(); i ++) { %>
                                 <li class="select__item"><%= i %></li>
@@ -249,7 +202,7 @@
                 <label class="label after-none">
                     <span class="text">Oy</span>
                     <div class="select modal__select">
-                        <div class="select__selected"></div>
+                        <div id="job_start_month" class="select__selected"></div>
                         <ul class="select__list d-none">
                             <li class="select__item">yanvar</li>
                             <li class="select__item">fevral</li>
@@ -269,7 +222,7 @@
                 <label class="label after-none">
                     <span class="text">Ish tugagan yil</span>
                     <div class="select modal__select">
-                        <div class="select__selected"></div>
+                        <div id="job_end_year" class="select__selected"></div>
                         <ul class="select__list d-none">
                             <% for (let i = 1990; i <= new Date().getFullYear(); i ++) { %>
                                 <li class="select__item"><%= i %></li>
@@ -280,7 +233,7 @@
                 <label class="label after-none">
                     <span class="text">Oy</span>
                     <div class="select modal__select">
-                        <div class="select__selected"></div>
+                        <div id="job_end_month" class="select__selected"></div>
                         <ul class="select__list d-none">
                             <li class="select__item">yanvar</li>
                             <li class="select__item">fevral</li>
@@ -300,11 +253,11 @@
             </div>
             <label class="modal__label label after-none valid">
                 <span class="text">Ishlagan joyingiz haqida yozing</span>
-                <textarea class="textarea modal__textarea" id="textarea" placeholder="Ishlagan joyingiz haqida yozing"></textarea>
+                <textarea id="job_about" class="textarea modal__textarea" id="textarea" placeholder="Ishlagan joyingiz haqida yozing"></textarea>
             </label>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button class="button button-blue" type="submit" disabled>Yangilash</button>
+                <button id="job_btn" class="button button-blue" type="submit">Yangilash</button>
             </div>
         </form>
         <button class="modal__close" data-modal-close>
@@ -313,8 +266,247 @@
     </div>
 </div>
 
+
+<script>
+    let job_place = document.querySelector("#job_place") 
+    let job_name = document.querySelector("#job_name")
+    let job_start_year = document.querySelector("#job_start_year")
+    let job_start_month = document.querySelector("#job_start_month")
+    let job_end_year = document.querySelector("#job_end_year")
+    let job_end_month = document.querySelector("#job_end_month")
+    let job_about = document.querySelector("#job_about")
+    let job_btn = document.querySelector("#job_btn")
+
+    job_btn.addEventListener("click", async (e) => {
+        let formData = new FormData()
+        
+        formData.append("job_place", job_place.value)
+        formData.append("job_name", job_name.value)
+        formData.append("start_year", job_start_year.textContent)
+        formData.append("start_month", job_start_month.textContent)
+        formData.append("end_year", job_end_year.textContent)
+        formData.append("end_month", job_end_month.textContent)
+        formData.append("about", job_about.value)
+
+        let response = await fetch(`/profile/job`, {
+            method: "POST",
+            body: formData,     
+        })
+
+        response = response.json()
+
+        if(response.ok) {
+            window.location.reload()
+        }
+    })
+</script>
+
 <!--o'qish joyi modali-->
 <div class="modal">
+    <div class="modal__content">
+        <h2 class="modal__heading">Ta'lim</h2>
+        <form class="modal__form form">
+            <div class="modal__field">
+                <label class="label">
+                    <span class="text">O'qigan joyingiz nomi</span>
+                    <input id="education_name" class="input modal__input" type="text" placeholder="O'qigan joyingiz nomi" >
+                </label>
+                <label class="label">
+                    <span class="text">Qaysi yo'nalish bo'yicha o'qigansiz?</span>
+                    <input id="education_direction" class="input modal__input" type="text" placeholder="">
+                </label>
+            </div>
+            <div class="modal__field modal__field__4">
+                <label class="label after-none">
+                    <span class="text">O'qish boshlangan yil</span>
+                    <div class="select modal__select">
+                        <div id="education_year_start" class="select__selected"></div>
+                        <ul class="select__list d-none">
+                            <% for (let i = 1990; i <= new Date().getFullYear(); i ++) { %>
+                                <li class="select__item"><%= i %></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </label>
+                <label class="label after-none">
+                    <span class="text">Oy</span>
+                    <div class="select modal__select">
+                        <div id="education_month_start" class="select__selected"></div>
+                        <ul class="select__list d-none">
+                            <li class="select__item">yanvar</li>
+                            <li class="select__item">fevral</li>
+                            <li class="select__item">mart</li>
+                            <li class="select__item">aprel</li>
+                            <li class="select__item">may</li>
+                            <li class="select__item">iyun</li>
+                            <li class="select__item">iyul</li>
+                            <li class="select__item">avgust</li>
+                            <li class="select__item">sentabr</li>
+                            <li class="select__item">oktabr</li>
+                            <li class="select__item">noyabr</li>
+                            <li class="select__item">dekabr</li>
+                        </ul>
+                    </div>
+                </label>
+                <label class="label after-none">
+                    <span class="text">O'qish tugagan yil</span>
+                    <div class="select modal__select">
+                        <div id="education_year_end" class="select__selected"></div>
+                        <ul class="select__list d-none">
+                            <% for (let i = 1990; i < new Date().getFullYear(); i ++) { %>
+                                <li class="select__item"><%= i %></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </label>
+                <label class="label after-none">
+                    <span class="text">Oy</span>
+                    <div class="select modal__select">
+                        <div id="education_month_end" class="select__selected"></div>
+                        <ul class="select__list d-none">
+                            <li class="select__item">yanvar</li>
+                            <li class="select__item">fevral</li>
+                            <li class="select__item">mart</li>
+                            <li class="select__item">aprel</li>
+                            <li class="select__item">may</li>
+                            <li class="select__item">iyun</li>
+                            <li class="select__item">iyul</li>
+                            <li class="select__item">avgust</li>
+                            <li class="select__item">sentabr</li>
+                            <li class="select__item">oktabr</li>
+                            <li class="select__item">noyabr</li>
+                            <li class="select__item">dekabr</li>
+                        </ul>
+                    </div>
+                </label>
+            </div>
+            <label class="modal__label label valid after-none">
+                <span class="text">O'qigan joyingiz haqida yozing</span>
+                <textarea id="education_about" class="textarea modal__textarea" placeholder="O'qigan joyingiz haqida yozing"></textarea>
+            </label>
+            <div class="modal__submit">
+                <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
+                <button id="education_btn" class="button button-blue" type="submit" >Yangilash</button>
+            </div>
+        </form>
+        <button class="modal__close" data-modal-close>
+            <img src="/img/icons/close-modal.svg" alt="close modal icon">
+        </button>
+    </div>
+</div>
+
+
+<script>
+    let education_name = document.querySelector("#education_name") 
+    let education_direction = document.querySelector("#education_direction")
+    let education_year_start = document.querySelector("#education_year_start")
+    let education_month_start = document.querySelector("#education_month_start")
+    let education_year_end = document.querySelector("#education_year_start")
+    let education_month_end = document.querySelector("#education_month_end")
+    let education_about = document.querySelector("#education_about")
+    let education_btn = document.querySelector("#education_btn")
+
+    education_btn.addEventListener("click", async (e) => {
+        let formData = new FormData()
+        
+        formData.append("education_name", education_name.value)
+        formData.append("education_direction", education_direction.value)
+        formData.append("start_year", education_year_start.textContent)
+        formData.append("start_month", education_month_start.textContent)
+        formData.append("end_year", education_year_end.textContent)
+        formData.append("end_month", education_month_end.textContent)
+        formData.append("about", education_about.value)
+
+        let response = await fetch(`/profile/education`, {
+            method: "POST",
+            body: formData,     
+        })
+
+        response = await response.json()
+
+        if(response.ok) {
+            window.location.reload()
+        }
+    })
+</script>
+
+<!--til qo'shish modali-->
+<div class="modal d-none">
+    <div class="modal__content">
+        <h2 class="modal__heading">Biladigan tillaringiz</h2>
+        <form class="modal__form form">
+            <div class="modal__field">
+                <label class="label after-none">
+                    <span class="text">Tilni tanlang</span>
+                    <div class="select modal__select">
+                        <div id="language" class="select__selected"></div>
+                        <ul class="select__list d-none">
+                            <li class="select__item">Ingliz tili</li>
+                            <li class="select__item">Rus tili</li>
+                            <li class="select__item">Koreys tili</li>
+                            <li class="select__item">Xitoy tili</li>
+                            <li class="select__item">Arab tili</li>
+                            <li class="select__item">Yapon tili</li>
+                        </ul>
+                    </div>
+                </label>
+                <label class="label after-none">
+                    <span class="text">Shu tilni bilish darajangiz</span>
+                    <div class="select modal__select">
+                        <div id="lang_degree" class="select__selected"></div>
+                        <ul class="select__list d-none">
+                            <li class="select__item">Tushunaman</li>
+                            <li class="select__item">Hujjatlarni o'qib tushunaman</li>
+                            <li class="select__item">Gaplasha olaman</li>
+                        </ul>
+                    </div>
+                </label>
+            </div>
+            <div>
+                <button class="add-language" type="button" title="Til qo'shish">
+                    <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6V0h2v6h6v2H8v6H6V8H0V6h6Z" fill="#C6D4FF"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__submit">
+                <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
+                <button id="lang_btn" class="button button-blue" type="submit" >Yangilash</button>
+            </div>
+        </form>
+        <button class="modal__close" data-modal-close>
+            <img src="/img/icons/close-modal.svg" alt="close modal icon">
+        </button>
+    </div>
+</div>
+
+<script>
+    let language = document.querySelector("#language")
+    let lang_degree = document.querySelector("#lang_degree")
+    let lang_btn = document.querySelector("#lang_btn")
+
+    lang_btn.addEventListener("click", async (e) => {
+        let formData = new FormData()
+
+        formData.append("language", language.textContent)
+        formData.append("degree", lang_degree.textContent)
+
+        let response = await fetch("/profile/language", {
+            method: "POST",
+            body: formData,
+        })
+
+        response = await response.json()
+
+        if(response.ok) {
+            window.location.reload()
+        }
+    })
+</script>
+
+
+<!--ko'nikmalar modali-->
+<div class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Ko'nikmalaringiz</h2>
         <form class="modal__form">
@@ -382,3 +574,5 @@
         </button>
     </div>
 </div>
+
+<script src="/js/user_profile.js"></script>

@@ -15,7 +15,7 @@
     <div class="filter">
         <div class="flex-container">
             <div class="select">
-                <div class="select__selected">Loyiha turi</div>
+                <div id="board_type" class="select__selected">Loyiha turi</div>
                 <ul class="select__list d-none">
                     <li class="select__item">Front End</li>
                     <li class="select__item">Dizayn</li>
@@ -26,42 +26,91 @@
                 </ul>
             </div>
             <div class="select">
-                <div class="select__selected">Narxi</div>
+                <div id="board_budjet" class="select__selected">Narxi</div>
                 <ul class="select__list d-none">
                     <li class="select__item">Amaliyot uchun</li>
                     <li class="select__item">Pulli</li>
                 </ul>
             </div>
             <div class="select">
-                <div class="select__selected">Yozilishlar soni</div>
+                <div id="board_applications" class="select__selected">Yozilishlar soni</div>
                 <ul class="select__list d-none">
                     <li class="select__item">5-</li>
                     <li class="select__item">5+</li>
                     <li class="select__item">10+</li>
                 </ul>
             </div>
-            <button class="button button-outline button-click">
+            <button id="board_btn" class="button button-outline button-click">
                 Filterlash
             </button>
         </div>
     </div>
+
+<script>
+    const board_type = document.querySelector("#board_type")
+    const board_budjet = document.querySelector("#board_budjet")
+    const board_applications = document.querySelector("#board_applications")
+    const board_btn = document.querySelector("#board_btn")
+    
+    board_btn.addEventListener("click", async (e) => {
+        let formData = new FormData()
+
+        formData.append("type", board_type.textContent)
+        formData.append("budjet", board_budjet.textContent)
+        formData.append("applications", board_applications.textContent)
+
+        await fetch("/boards", {
+            method: "GET",
+            body: formData,
+        })
+    })
+</script>    
+
     <div class="board-list">
         <div class="grid-container">
-            <% for (let i = 0; i < 16; i++) { %>
+            <% for (let board of boards) { %>
                 <%- include('components/card', {
-                    cardTitle: 'Web dasturchilar kerak',
-                    viewsCount: 146,
-                    workersCount: 23,
-                    cardType: 'bot',
-                    cardLink: '/boards/firmaga-web-sayt-qilish-kerak',
+                    cardTitle: `${board.name}`,
+                    viewsCount: board.views,
+                    workersCount: board.applications,
+                    cardType: `${board.image}`,
+                    cardLink: `/boards/${board.slug}`,
                     editable: false
                 }) %>
             <% } %>
         </div>
         <div class="pagination-container">
-            <div id="pagination"></div>
+            <div id="pagination">
+                <% if(c_page != 1) { %>
+                    <a class="pagination-direction pagination-direction--prev" href="/boards?c_page=<%= Number(c_page) - 1 %>">
+                        <svg width="8" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.828 7l4.95 4.95-1.414 1.414L0 7 6.364.636 7.778 2.05 2.828 7z" fill="#fff"></path></svg></a>
+                <% } %>     
+            <span>
+                <% for(let i = 1; i < boards_count + 1; i++) { %>
+                    <a href="/boards?c_page=<%= i %>" class="<%= c_page == i ? "current" : "" %>"><%= i %></a>
+                <% } %>      
+                <!-- <a>1</a>
+                <a class="current">2</a>
+                <a>3</a>
+                <a>4</a>
+                <a>5</a>
+                <a>6</a>
+                <a>7</a>
+                <a>8</a>
+                <a>9</a>
+                <i>...</i>
+                <a>15</a> -->
+            </span>
+                <% if(c_page != (boards_count)) { %> 
+                    <a class="pagination-direction pagination-direction--next" href="/boards?c_page=<%= Number(c_page) + 1 %>">
+                    <svg width="8" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.172 7L.222 2.05 1.636.636 8 7l-6.364 6.364L.222 11.95 5.172 7z" fill="#fff"></path></svg>
+                    </a>
+                <% } %> 
+            </div>    
         </div>
     </div>
 </main>
+
+
 <%- include('components/footer') %>
 <%- include('parts/footer') %>

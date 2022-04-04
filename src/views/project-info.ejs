@@ -4,9 +4,9 @@
     <%- include('components/navbar', { logo: 'white' }) %>
     <div class="container">
         <h1 class="header__title">
-            <span>Firmaga web sayt</span>
+            <span><%= board.name %> </span>
             <br>
-            <span>qilish kerak</span>
+            <!-- <span>qilish kerak</span> -->
         </h1>
     </div>
 </header>
@@ -16,52 +16,49 @@
         <div class="project-info">
             <h2 class="d-none">E'lon haqida batafsil</h2>
             <p class="project-info__description">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting,
+                <%= board.description %> 
             </p>
             <div class="project-info__additional">
                 <div class="project-info__item">
                     <h3 class="project-info__heading">
                         Telefon raqam
                     </h3>
-                    <p class="project-info__value">+998999639773</p>
+                    <p class="project-info__value"><%= board.phone %> </p>
                 </div>
                 <div class="project-info__item">
                     <h3 class="project-info__heading">
                         Loyiha byudjeti
                     </h3>
-                    <p class="project-info__value">1200$</p>
+                    <p class="project-info__value"><%= board.budjet %> </p>
                 </div>
             </div>
         </div>
         <div class="form-wrapper">
             <h2 class="form-wrapper__heading">Loyihani band qilish uchun pastdagi formani to'ldiring</h2>
-            <form class="form">
+            <form action="/boards/<%= board.slug %> " method="post" class="form">
                 <div class="form__field">
                     <label class="label">
                         <span class="text">Ismingiz</span>
-                        <input class="input" type="text" data-input-fname />
+                        <input name="full_name" class="input" type="text" data-input-fname />
                     </label>
                     <label class="label">
                         <span class="text">Github link</span>
-                        <input class="input" type="url" data-input-git />
+                        <input name="git" class="input" type="url" data-input-git />
                     </label>
                 </div>
                 <div class="form__field">
                     <label class="label">
                         <span class="text">Telefon raqamingiz</span>
-                        <input class="input" id="phone" type="tel" data-input-phone />
+                        <input name="phone" class="input" id="phone" type="tel" data-input-phone />
                     </label>
                     <label class="label">
                         <span class="text">Portfolio saytga link</span>
-                        <input class="input" type="url" data-input-portfolio-link />
+                        <input name="portfolio" class="input" type="url" data-input-portfolio-link />
                     </label>
                 </div>
                 <label class="label valid after-none">
                     <span class="text">Izohingizni qoldiring</span>
-                    <textarea class="textarea"></textarea>
+                    <textarea name="comment" class="textarea"></textarea>
                 </label>
                 <div class="submit">
                     <button class="button button-blue" type="submit" disabled>Jo'natish</button>
@@ -70,6 +67,23 @@
         </div>
     </div>
 </main>
+
+<% if(succes) { %>
+    <div id="toaster">
+        <div class="toaster toaster--success">
+            <p class="toaster__text"><%= succes %></p>
+            <div class="toaster__close">
+                <img src="/img/icons/times.svg" alt="times icon">
+            </div>
+        </div> 
+    </div>   
+<% } %>     
+
+<script>
+    document.querySelector(".toaster__close").addEventListener("click", (e) => {
+        document.querySelector("#toaster").innerHTML = ""
+    })
+</script>
 
 <%- include('components/footer') %>
 <%- include('parts/footer') %>

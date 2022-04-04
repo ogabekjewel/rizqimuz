@@ -7,7 +7,12 @@ require("../models/UserPostfolio")
 require("../models/UserSkills")
 require("../models/UserSocialNetworks")
 require("../models/UserStudy")
-require("../models/UserWorkPlace")   
+require("../models/UserJobs")  
+require("../models/Technologies")
+require("../models/Messages")
+require("../models/Boards")
+require("../models/Applications")
+require("../models/Description")
 
 module.exports = async function mongo() {
     try {

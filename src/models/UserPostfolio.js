@@ -4,11 +4,11 @@ const PortfolioSchema = mongoose.Schema({
     id: {
         type: String,
         required: true,
-        unique: true,
-    },
+        unique: true, 
+    },       
     user_id: {
         type: String,
-        required: true,
+        required: true,   
     },
     image: {
         type: String,
@@ -24,6 +24,6 @@ const PortfolioSchema = mongoose.Schema({
     }
 }) 
 
-const portfolios = mongoose.model("portfolois", PortfolioSchema)
+const portfolios = mongoose.model("portfolios", PortfolioSchema)
 
 module.exports = portfolios

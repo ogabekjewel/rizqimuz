@@ -15,12 +15,12 @@
 <main class="main">
     <div class="board-list">
         <div class="grid-container">
-            <% for (let i = 0; i < 16; i++) { %>
+            <% for (let board of boards) { %>
                 <%- include('components/card', {
-                    cardTitle: 'ABM',
-                    viewsCount: 146,
+                    cardTitle: `${board.name}`,
+                    viewsCount: board.views,
                     workersCount: null,
-                    cardType: 'bot',
+                    cardType: `${board.image}`,
                     cardLink: '/posts/1',
                     editable: false
                 }) %>
