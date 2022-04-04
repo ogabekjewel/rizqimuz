@@ -118,7 +118,7 @@
 </div>
 
 <!--portfolio qo'shish modali-->
-<div class="modal d-none">
+<div id="portfolio" class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Portfolio</h2>
         <form class="modal__form form">
@@ -169,6 +169,17 @@
             body: formData,     
         })
     })
+
+    let editBtns = document.querySelectorAll(".card__edit")
+    let portfolio = document.querySelector("#portfolio")
+
+    for(let i = 0; i < editBtns.length; i++) {
+        editBtns[i].addEventListener("click", (e) => {
+            portfolio.classList.remove("d-none")
+            portfolio.classList.add("d-block")
+            project_name.setAttribute("placeholder", "test")
+        })
+    }
 </script>
 
 
@@ -302,7 +313,7 @@
 </script>
 
 <!--o'qish joyi modali-->
-<div class="modal">
+<div class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Ta'lim</h2>
         <form class="modal__form form">

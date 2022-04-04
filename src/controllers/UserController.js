@@ -77,7 +77,8 @@ module.exports = class User {
                 slug, 
                 email, 
                 pass,
-                role
+                role,
+                avatar: `/users/default.jpg`,
             })
     
             let token = await generateToken({

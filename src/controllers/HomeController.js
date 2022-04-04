@@ -33,7 +33,7 @@ module.exports = class HomeController {
             const freelancerList = await users.find()
 
             const boardList = await boards.find()
-            console.log(topBoards)
+
             res.render("index", {
                 title: "Home || Rizqimuz",
                 path: "/",
@@ -70,5 +70,5 @@ module.exports = class HomeController {
         } catch(e) {
             console.log(e)
         }
-    }
-}
+    }      
+}         

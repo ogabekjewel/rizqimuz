@@ -12,11 +12,11 @@
                 <div class="profile__avatar">
                     <label for="avatar">
                         <picture>
-                            <source srcset="/img/<%= user.avatar ? user.avatar : '/img/users/user@1x.jpg' %>" type="image/webp">
-                            <img srcset="/img/<%= user.avatar ? user.avatar : '/img/users/user@1x.jpg' %>">
+                            <source srcset="/img/<%= user.avatar' %>" type="image/webp">
+                            <img srcset="/img/<%= user.avatar' %>">
                         </picture>
                     </label>
-                    <input id="avatar" type="file" class="visually-hidden">
+                    <input id="avatar" type="file" class="d-none">
                 </div>
                 <div class="profile__name">
                     <h1><%= user.first_name + ' ' + user.last_name %></h1>
@@ -119,11 +119,17 @@
                                 cardType: `${portfolios[i].image}`,
                                 cardLink: `${portfolios[i].link}`,
                                 editable: true
+                                id: `${portfolios[i].id}`,
                             }) %>
                         <% } %>
                     </main>
                 <% } %>
             </section>
+
+<script>
+    
+</script>            
+
             <section class="profile__section">
                 <header class="profile__section__header">
                     <h2 class="profile__section__heading">Ishlagan joylaringiz</h2>
