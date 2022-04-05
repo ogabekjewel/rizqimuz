@@ -17,6 +17,8 @@ const JobPOSTValidation = require("../validations/JobPOSTValidation")
 const works = require("../models/UserJobs")
 const languages = require("../models/UserLanguages")
 const LangPOSTValidation = require("../validations/LangPOSTValidation")
+const skills = require("../models/UserSkills")
+const technologies = require("../models/Technologies")
 
 module.exports = class User {
     static async SignUpGET(req, res) {
@@ -224,6 +226,8 @@ module.exports = class User {
             let langList = await languages.find({
                 user_id: user.user_id,
             })
+
+            let all_technology = await technologies.find()
                     
             res.render("profile", {
                 title: `${user.first_name} ${user.last_name} || Rizqimuz`,
@@ -231,7 +235,8 @@ module.exports = class User {
                 portfolios: portfolioList,
                 education: educationList,
                 works: WorkList,
-                languages: langList
+                languages: langList,
+                all_technology,
             })            
         } catch(e) {      
             res.render("404", {    
@@ -241,7 +246,7 @@ module.exports = class User {
         }
     }
 
-    static async AvatarPATCH(req, res) {
+    static async AvatarPATCH(req, res) {   
         try {
             let { photo } = req.files
 
@@ -312,9 +317,18 @@ module.exports = class User {
 
     static async PortfolioPOST(req, res) {
         try {
-            let { project_name, project_link} = req.body
+            let { project_name, project_link, id } = req.body
+
+            if(!project_name && !project_link) {
+                await portfolios.findOneAndDelete({
+                    id
+                })
+                res.redirect("/profile")
+                return
+            }
+
             let { portfolio_img } = req.files
-    
+            
             let user = req.user   
     
             let imageType = portfolio_img.mimetype.split("/")[0]
@@ -325,18 +339,30 @@ module.exports = class User {
                 let imagePath = Path.join(__dirname, "..", "public", "img", "posting-images", `${imageName}.${imageFormat}`)
     
                 await portfolio_img.mv(imagePath)
-                console.log(true)
-                await portfolios.create({
-                    id: v4(),
+                
+            } else {
+                throw new Error("Image type 'image' or 'vector'") 
+            }
+
+            if(id) {
+                await portfolios.findOneAndUpdate({
+                    id,
+                }, {
                     user_id: user.user_id,
                     name: project_name,
                     link: project_link, 
                     image: `/posting-images/${imageName}.${imageFormat}`,
                 })
             } else {
-                throw new Error("Image type 'image' or 'vector'") 
+                await portfolios.create({
+                    id: v4(),
+                    user_id: user.user_id,
+                    name: project_name,
+                    link: project_link, 
+                    image: `/posting-images/${imageName}.${imageFormat}`,
+                }) 
             }
-    
+            
             res.redirect("/profile")
         } catch(e) {
             console.log(e)
@@ -346,7 +372,7 @@ module.exports = class User {
         }
 
     }
-
+    
     static async EducationPOST(req, res) {
         try {
             const { education_name, education_direction, about, start_year, start_month, end_year, end_month  } = await EducationPOSTValidation(req.body)

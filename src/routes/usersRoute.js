@@ -1,4 +1,4 @@
-const { SignUpGET, SignUpPOST, CompletedGET, verifyGET, SignInGET, SignInPOST, ProfileGET, AvatarPATCH, ProfileSlugGET, ProfilePOST, PortfolioPOST, EducationPOST, JobPOST, LangPOST } = require("../controllers/UserController")
+const { SignUpGET, SignUpPOST, CompletedGET, verifyGET, SignInGET, SignInPOST, ProfileGET, AvatarPATCH, ProfileSlugGET, ProfilePOST, PortfolioPOST, EducationPOST, JobPOST, LangPOST, SkillsPOST } = require("../controllers/UserController")
 const AuthMiddleware = require("../middlewares/AuthMiddleware")
 
 const router = require("express").Router()
@@ -23,6 +23,7 @@ router.post("/profile/portfolio", AuthMiddleware, PortfolioPOST)
 router.post("/profile/education", AuthMiddleware, EducationPOST)
 router.post("/profile/job", AuthMiddleware, JobPOST)
 router.post("/profile/language", AuthMiddleware, LangPOST)
+
 module.exports = {   
     path: "/",     
     router

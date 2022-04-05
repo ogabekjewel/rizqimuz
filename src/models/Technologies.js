@@ -10,7 +10,6 @@ const TechnologySchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    
 }) 
 
 const technologies = mongoose.model("technologies", TechnologySchema)

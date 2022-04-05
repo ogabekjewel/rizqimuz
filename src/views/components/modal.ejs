@@ -140,10 +140,10 @@
             </div>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button id="portfolio_btn" class="button button-blue" type="submit" >Yangilash</button>
+                <button id="portfolio_btn" class="button button-blue modal_button" type="submit" >Yangilash</button>
             </div>
         </form>
-        <button class="modal__close" data-modal-close>
+        <button id="" class="modal__close " data-modal-close>
             <img src="/img/icons/close-modal.svg" alt="close modal icon">
         </button>
     </div>
@@ -162,24 +162,13 @@
         formData.append("portfolio_img", file)
         formData.append("project_name", project_name.value)
         formData.append("project_link", project_link.value)
+        formData.append("id", portfolio_btn.value)
 
-        console.log(formData)
         let response = await fetch(`/profile/portfolio`, {
             method: "POST",
             body: formData,     
         })
     })
-
-    let editBtns = document.querySelectorAll(".card__edit")
-    let portfolio = document.querySelector("#portfolio")
-
-    for(let i = 0; i < editBtns.length; i++) {
-        editBtns[i].addEventListener("click", (e) => {
-            portfolio.classList.remove("d-none")
-            portfolio.classList.add("d-block")
-            project_name.setAttribute("placeholder", "test")
-        })
-    }
 </script>
 
 
@@ -525,50 +514,16 @@
                 <div class="skills__add">
                     <input class="input modal__input" type="text" placeholder="Ko'nikma nomini kiriting">
                     <ul class="skills__hints">
-                        <li class="skills__hints__item">
-                            JavaScript
-                        </li>
-                        <li class="skills__hints__item">
-                            Java
-                        </li>
-                        <li class="skills__hints__item">
-                            Joomla
-                        </li>
+                        <% for(let technology of all_technology) { %>
+                            <li id="skills_item" class="skills__hints__item">
+                                <%= technology.name %> 
+                            </li>
+                        <% } %>     
                     </ul>
                 </div>
                 <ul class="skills__list">
                     <li class="skills__item">
-                        <span>HTML</span>
-                        <span class="skills__remove">
-                            <img src="/img/icons/times.svg" alt="remove icon">
-                        </span>
-                    </li>
-                    <li class="skills__item">
-                        <span>CSS</span>
-                        <span class="skills__remove">
-                            <img src="/img/icons/times.svg" alt="remove icon">
-                        </span>
-                    </li>
-                    <li class="skills__item">
-                        <span>Sass</span>
-                        <span class="skills__remove">
-                            <img src="/img/icons/times.svg" alt="remove icon">
-                        </span>
-                    </li>
-                    <li class="skills__item">
-                        <span>Bootstrap</span>
-                        <span class="skills__remove">
-                            <img src="/img/icons/times.svg" alt="remove icon">
-                        </span>
-                    </li>
-                    <li class="skills__item">
-                        <span>Webpack</span>
-                        <span class="skills__remove">
-                            <img src="/img/icons/times.svg" alt="remove icon">
-                        </span>
-                    </li>
-                    <li class="skills__item">
-                        <span>Sequelize</span>
+                        <span id="skills_name">HTML</span>
                         <span class="skills__remove">
                             <img src="/img/icons/times.svg" alt="remove icon">
                         </span>
@@ -577,7 +532,7 @@
             </div>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button class="button button-blue" type="submit" disabled>Yangilash</button>
+                <button id="skills_button" class="button button-blue" type="submit" >Yangilash</button>
             </div>
         </form>
         <button class="modal__close" data-modal-close>
@@ -585,5 +540,48 @@
         </button>
     </div>
 </div>
+
+<script>
+    let skills = document.querySelectorAll("#skills_item")
+    let skillsList = document.querySelector(".skills__list")
+    let skills_button = document.querySelector("#skills_button")
+    let skills_name = document.querySelectorAll("#skills_name")
+    for(let i = 0; i < skills.length; i ++) {
+        skills[i].addEventListener("click", (e) => {
+            skillsList.innerHTML += ` <li class="skills__item">
+                                    <span>${skills[i].textContent}</span>
+                                    <span class="skills__remove">
+                                    <img src="/img/icons/times.svg" alt="remove icon">
+                                    </span>
+                                    </li>`
+        })
+    }
+
+    // --------chalaasi bor-----------
+
+    // skills_button.addEventListener("click", async (e) => {
+    //     let formData = new FormData()
+    //         let skills_list = []
+    //         console.log(true)
+    //         for(let skill of skills_name) {
+    //             skills_list.append({
+    //                 name: `${skill.textContent}`,
+    //             })
+    //         }
+
+    //         formData.append("skills", skills_list)
+    //         console.log(formData)
+    //         // let response = await fetch("/profile/skills", {
+    //         //     body: formData,
+    //         //     method: "PATCH",
+    //         // })
+
+    //         // response = response.json()
+    //         // if(response.ok) {
+    //         //     window.location.reload()
+    //         // }
+       
+    // })
+</script>
 
 <script src="/js/user_profile.js"></script>
