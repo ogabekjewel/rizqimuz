@@ -165,16 +165,15 @@ module.exports = class AdminController {
                 user_id,   
             })
     
-            let messageList = await messages.find({
-                user_id,
-            })
-    
+            let messageList = await messages.find()
+            let applicationList = await applications.find()
             let founderList = await founders.find()
     
             res.render("admin-about", {
                 messages: messageList,
                 user,
                 founders: founderList,
+                applications: applicationList,
             })            
         } catch(e) {
             res.render("404", {
@@ -254,6 +253,7 @@ module.exports = class AdminController {
         try {
             let { email } = req.admin
             let messageList = await messages.find()
+            let applicationList = await applications.find()
             
             let user = await users.findOne({
                 email,
@@ -262,6 +262,7 @@ module.exports = class AdminController {
             res.render("admin-boards", {
                 messages: messageList,
                 user,
+                applications: applicationList,
             })
         } catch(e) {
             res.status(400).json({
@@ -345,11 +346,13 @@ module.exports = class AdminController {
             })
     
             let messageList = await messages.find()
+            let applicationList = await applications.find()
     
     
             res.render("admin-users", {
                 user,
                 messages: messageList,
+                applications: applicationList,
                 users: userList,
                 c_page,
                 users_count,
@@ -442,11 +445,13 @@ module.exports = class AdminController {
             })
             let messageList = await messages.find()
             let sponsorList = await sponsors.find()
+            let applicationList = await applications.find()
 
             res.render("admin-sponsors", {
                 user,
                 messages: messageList,
                 sponsors: sponsorList,
+                applications: applicationList,
             })
         } catch(e) {
             console.log(e)

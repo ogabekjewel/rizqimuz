@@ -85,7 +85,7 @@ module.exports = class FreelancersController {
             })
         } catch(e) {
             console.log(e) 
-
+            res.redirect("/404")
         }
     }
 }       
