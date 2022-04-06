@@ -375,8 +375,36 @@ module.exports = class User {
     
     static async EducationPOST(req, res) {
         try {
-            const { education_name, education_direction, about, start_year, start_month, end_year, end_month  } = await EducationPOSTValidation(req.body)
-        
+            let { education_name, education_direction, about, start_year, start_month, end_year, end_month, id } = await EducationPOSTValidation(req.body)
+            
+            let edu = await education.findOne({
+                id
+            })
+
+            if(edu) {
+                id = await slugify(id, {
+                    replacement: (''),
+                })
+
+                let edu = await education.findOneAndUpdate({
+                    id,
+                }, {
+                    name: education_name,   
+                    direction: education_direction,
+                    about,
+                    start_year,
+                    start_month,
+                    end_year,
+                    end_month
+                })
+                
+                res.status(200).json({
+                    ok: true,
+                })
+
+                return
+            }
+
             const user = req.user
             
             await education.create({
@@ -395,6 +423,7 @@ module.exports = class User {
                 ok: true,
             })
         } catch(e) {
+            console.log(e)
             res.status(400).json({
                 ok: false,
             })
@@ -405,11 +434,38 @@ module.exports = class User {
 
     static async JobPOST(req, res) {
         try {
-            const { job_place, job_name, start_year, start_month, end_year, end_month, about} = await JobPOSTValidation(req.body)
+            let { job_place, job_name, start_year, start_month, end_year, end_month, about, id } = await JobPOSTValidation(req.body)
+            
+            let work = await works.findOne({
+                id,
+            })
 
+            if(work) {
+                id = await slugify(id, {
+                    replacement: (''),
+                })
+
+                let work = await works.findOneAndUpdate({
+                    id,
+                }, {
+                    job_place, 
+                    job_name, 
+                    about, 
+                    start_year, 
+                    end_year, 
+                    start_month,   
+                    end_month,
+                })
+
+                res.status(200).json({
+                    ok: true,
+                })
+
+                return
+            }
             const user = req.user
     
-            let work = await works.create({
+            await works.create({
                 id: v4(),   
                 user_id: user.user_id,
                 job_place, 
@@ -420,7 +476,6 @@ module.exports = class User {
                 start_month, 
                 end_month,
             })  
-            console.log(work)
             
             res.status(200).json({
                 ok: true,
@@ -435,7 +490,26 @@ module.exports = class User {
 
     static async LangPOST(req, res) {
        try {
-            const { language, degree } = await LangPOSTValidation(req.body)
+            let { language, degree, id } = await LangPOSTValidation(req.body)
+            
+            if(id) {
+                id = await slugify(id, {
+                    replacement: (''),
+                })
+                
+                await languages.findOneAndUpdate({
+                    id,
+                }, {
+                    language,
+                    degree,
+                })
+
+                res.status(200).json({
+                    ok: true,
+                })
+
+                return
+            }
 
             const user = req.user
 
@@ -450,6 +524,7 @@ module.exports = class User {
                 ok: true,
             })                   
        } catch(e) {
+           console.log(e)
            res.status(400).json({
                ok: false
            })

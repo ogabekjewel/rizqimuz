@@ -1,19 +1,18 @@
 const modal = document.querySelectorAll('.modal')
-const modalContent = document.querySelectorAll('.modal__content')
 const edit = document.querySelectorAll(".profile__section__edit")
 const modalClose = document.querySelectorAll('[data-modal-close]')
 const addModal = document.querySelectorAll('.profile__section__add')
 
-for(let i = 0;i < edit.length; i++) {
+for(let i = 0; i < edit.length; i++) {
     edit[i].addEventListener("click", (e) => {
         modal[i].classList.remove("d-none")
         modal[i].classList.add("d-block")
     })
 }
+
 for(let a = 0; a < modalClose.length; a++) {
     modalClose[a].addEventListener("click", (e) => {
-        console.log(true)
-        for(let i = 0;i < modal.length; i++) {
+        for(let i = 0; i < modal.length; i++) {
             modal[i].classList.add("d-none")
             modal[i].classList.remove("d-block")
         }
@@ -21,7 +20,6 @@ for(let a = 0; a < modalClose.length; a++) {
 }
   
 for(let i = 0; i < addModal.length; i++) {
-    
     addModal[i].addEventListener("click", (e) => {
         console.log(addModal)
         modal[i + 5].classList.remove("d-none")

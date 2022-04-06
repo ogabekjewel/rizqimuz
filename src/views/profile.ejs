@@ -150,16 +150,22 @@
                            <% for(let work of works) { %>
                                 <li class="profile__experience__item">
                                     <h3 class="profile__experience__heading">
-                                        <span><%= work.job_place %> <%= work.job_name %>  . <%= work.start_year %>,  <%= work.start_month %>  - <%= work.end_year %> , <%= work.end_month %> </span>
-                                        <img class="profile__experience__edit" src="/img/icons/edit.svg" width="16" height="16" alt="edit icon" title="O'zgartirish">
+                                        <span id="work_place"><%= work.job_place %></span>
+                                        <span id="work_name"><%= work.job_name %> .</span>    
+                                        <span id="work_start_year"><%= work.start_year %></span>  ,    
+                                        <span id="work_start_month"><%= work.start_month %></span> -     
+                                        <span id="work_end_year"><%= work.end_year %></span> , 
+                                        <span id="work_end_month"><%= work.end_month %></span>
+                                        <img id="<%= work.id %>" class="profile__experience__edit" src="/img/icons/edit.svg" width="16" height="16" alt="edit icon" title="O'zgartirish">
                                     </h3>
-                                    <p class="profile__section__text"><%= work.about %> </p>
+                                    <p id="work_about" class="profile__section__text"><%= work.about %></p>
+                                   
                                 </li>
                             <% } %>  
                         </ul>
                     </main>
                 <% } %>
-            </section>
+            </section>           
             <section class="profile__section">
                 <header class="profile__section__header">
                     <h2 class="profile__section__heading">O'qigan joylaringiz</h2>
@@ -178,10 +184,16 @@
                             <% for(let edu of education) { %>
                                 <li class="profile__education__item">
                                     <h3 class="profile__education__heading">
-                                        <span><%= edu.name %>. <%= edu.direction %>   . <%= edu.start_year %> , <%= edu.start_month %>  - <%= edu.end_year %> , <%= edu.end_month %> </span>
-                                        <img class="profile__education__edit" src="/img/icons/edit.svg" width="16" height="16" alt="edit icon" title="O'zgartirish">
+                                        <span id="edu_name"><%= edu.name %>.</span>
+                                        <span id="edu_direction"><%= edu.direction %></span> . 
+                                        <span id="edu_start_year"><%= edu.start_year %></span>, 
+                                        <span id="edu_start_month"><%= edu.start_month %></span> - 
+                                        <span id="edu_end_year"><%= edu.end_year %></span>  , 
+                                        <span id="edu_end_month"><%= edu.end_month %></span>
+                                        <img id="<%= edu.id %>" class="profile__education__edit" src="/img/icons/edit.svg" width="16" height="16" alt="edit icon" title="O'zgartirish">
                                     </h3>
-                                    <p class="profile__section__text"><%= edu.about %></p>
+                                    <p id="edu_about" class="profile__section__text"><%= edu.about %></p>
+                                    
                                 </li>
                             <% } %>  
                         </ul>
@@ -206,10 +218,10 @@
                             <% for(let lang of languages) { %> 
                                 <li class="profile__language__item">
                                     <h3 class="profile__language__heading">
-                                        <span><%= lang.language %> </span>
-                                        <img class="profile__language__edit" src="/img/icons/edit.svg" width="16" height="16" alt="edit icon" title="O'zgartirish">
+                                        <span id="lang"><%= lang.language %></span>
+                                        <img id="<%= lang.id %> " class="profile__language__edit" src="/img/icons/edit.svg" width="16" height="16" alt="edit icon" title="O'zgartirish">
                                     </h3>
-                                    <p class="profile__section__text"><%= lang.degree %> </p>
+                                    <p id="language_degree" class="profile__section__text"><%= lang.degree %></p>
                                 </li>
                             <% } %> 
                         </ul>
@@ -396,7 +408,77 @@
             modalBtn.setAttribute("value", `${editBtn[i].id}`)
         })
     }
-</script> 
+    // --------------------
+    const experience_edit = document.querySelectorAll(".profile__experience__edit") 
+    const work_modal = document.querySelector("#work_modal")
+    const work_button = document.querySelector(".work_button")
 
+    const work_place       = document.querySelectorAll("#work_place")
+    const work_name        = document.querySelectorAll("#work_name")
+    const work_start_year  = document.querySelectorAll("#work_start_year")
+    const work_start_month = document.querySelectorAll("#work_start_month")
+    const work_end_year    = document.querySelectorAll("#work_end_year")
+    const work_end_month   = document.querySelectorAll("#work_end_month")
+    const work_about       = document.querySelectorAll("#work_about")
+
+    for(let i = 0; i < experience_edit.length; i++) {
+        experience_edit[i].addEventListener("click", (e) => {
+            work_modal.classList.add("d-block")
+            work_modal.classList.remove("d-none")
+            work_button.setAttribute("value", `${experience_edit[i].id}`)
+            job_place.value             = work_place[i].textContent
+            job_name.value              = work_name[i].textContent
+            job_start_year.textContent  = work_start_year[i].textContent
+            job_start_month.textContent = work_start_month[i].textContent
+            job_end_year.textContent    = work_end_year[i].textContent
+            job_end_month.textContent   = work_end_month[i].textContent
+            job_about.value             = work_about[i].textContent
+        })
+    }
+
+    // ----------
+    const education_edit   = document.querySelectorAll(".profile__education__edit") 
+    const education_modal  = document.querySelector("#education_modal")
+    const education_button = document.querySelector(".education_button")
+
+    const edu_name        = document.querySelectorAll("#edu_name")
+    const edu_direction   = document.querySelectorAll("#edu_direction")
+    const edu_start_year  = document.querySelectorAll("#edu_start_year")
+    const edu_start_month = document.querySelectorAll("#edu_start_month")
+    const edu_end_year    = document.querySelectorAll("#edu_end_year")
+    const edu_end_month   = document.querySelectorAll("#edu_end_month")
+    const edu_about       = document.querySelectorAll("#edu_about")
+
+    for(let i = 0; i < education_edit.length; i++) {
+        education_edit[i].addEventListener("click", (e) => {
+            education_modal.classList.add("d-block")
+            education_modal.classList.remove("d-none")
+            education_button.setAttribute("value", `${education_edit[i].id}`)
+            education_name.value              = edu_name[i].textContent
+            education_direction.value         = edu_direction[i].textContent
+            education_year_start.textContent  = edu_start_year[i].textContent
+            education_month_start.textContent = edu_start_month[i].textContent 
+            education_year_end.textContent    = edu_end_year[i].textContent
+            education_month_end.textContent   = edu_end_month[i].textContent
+            education_about.value             = edu_about[i].textContent
+        })
+    }
+    // ----------------
+    const edit_lang = document.querySelectorAll(".profile__language__edit")
+    const lang_modal = document.querySelector("#language_modal")
+    const lang_button = document.querySelector(".language_button")
+    const language_degree = document.querySelectorAll("#language_degree")
+    const lang = document.querySelectorAll("#lang")
+
+    for(let i = 0; i < edit_lang.length; i++) {
+        edit_lang[i].addEventListener("click", (e) => {
+            lang_modal.classList.add("d-block")
+            lang_modal.classList.remove("d-none")
+            lang_button.setAttribute("value", `${edit_lang[i].id}`)
+            language.textContent = lang[i].textContent
+            lang_degree.textContent = language_degree[i].textContent
+        })
+    }
+</script>
 <%- include('components/footer') %>
 <%- include('parts/footer') %>

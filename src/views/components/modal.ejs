@@ -173,7 +173,7 @@
 
 
 <!--Ish joyi modali-->
-<div class="modal d-none">
+<div id="work_modal" class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Ishlagan joylaringiz</h2>
         <form class="modal__form form">
@@ -257,7 +257,7 @@
             </label>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button id="job_btn" class="button button-blue" type="submit">Yangilash</button>
+                <button id="job_btn" class="button button-blue work_button" type="submit">Yangilash</button>
             </div>
         </form>
         <button class="modal__close" data-modal-close>
@@ -287,6 +287,7 @@
         formData.append("end_year", job_end_year.textContent)
         formData.append("end_month", job_end_month.textContent)
         formData.append("about", job_about.value)
+        formData.append("id", job_btn.value || null)
 
         let response = await fetch(`/profile/job`, {
             method: "POST",
@@ -302,7 +303,7 @@
 </script>
 
 <!--o'qish joyi modali-->
-<div class="modal d-none">
+<div id="education_modal" class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Ta'lim</h2>
         <form class="modal__form form">
@@ -386,7 +387,7 @@
             </label>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button id="education_btn" class="button button-blue" type="submit" >Yangilash</button>
+                <button id="education_btn" class="button button-blue education_button" type="submit" >Yangilash</button>
             </div>
         </form>
         <button class="modal__close" data-modal-close>
@@ -401,11 +402,11 @@
     let education_direction = document.querySelector("#education_direction")
     let education_year_start = document.querySelector("#education_year_start")
     let education_month_start = document.querySelector("#education_month_start")
-    let education_year_end = document.querySelector("#education_year_start")
+    let education_year_end = document.querySelector("#education_year_end")
     let education_month_end = document.querySelector("#education_month_end")
     let education_about = document.querySelector("#education_about")
     let education_btn = document.querySelector("#education_btn")
-
+    
     education_btn.addEventListener("click", async (e) => {
         let formData = new FormData()
         
@@ -416,6 +417,7 @@
         formData.append("end_year", education_year_end.textContent)
         formData.append("end_month", education_month_end.textContent)
         formData.append("about", education_about.value)
+        formData.append("id", education_btn.value || null)
 
         let response = await fetch(`/profile/education`, {
             method: "POST",
@@ -431,7 +433,7 @@
 </script>
 
 <!--til qo'shish modali-->
-<div class="modal d-none">
+<div id="language_modal" class="modal d-none">
     <div class="modal__content">
         <h2 class="modal__heading">Biladigan tillaringiz</h2>
         <form class="modal__form form">
@@ -471,7 +473,7 @@
             </div>
             <div class="modal__submit">
                 <button class="button button-outline" type="button" data-modal-close>Bekor qilish</button>
-                <button id="lang_btn" class="button button-blue" type="submit" >Yangilash</button>
+                <button id="lang_btn" class="button button-blue language_button" type="submit" >Yangilash</button>
             </div>
         </form>
         <button class="modal__close" data-modal-close>
@@ -490,6 +492,7 @@
 
         formData.append("language", language.textContent)
         formData.append("degree", lang_degree.textContent)
+        formData.append("id", lang_btn.value || null)
 
         let response = await fetch("/profile/language", {
             method: "POST",

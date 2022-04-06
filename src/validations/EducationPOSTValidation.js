@@ -2,6 +2,7 @@ const Joi = require("joi")
 
 module.exports = function(data) {
     return Joi.object({
+        id: Joi.string(),
         education_name: Joi.string().required(),
         education_direction: Joi.string().required(),
         about: Joi.string().required(),
