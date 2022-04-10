@@ -69,7 +69,7 @@ module.exports = class User {
                 if(slugFind) {
                     let random = Math.ceil(Math.random() * 10)
                     slug = `${slug}${random}`
-                    
+
                     await find()
                 }
             }
@@ -93,12 +93,12 @@ module.exports = class User {
                 ...user._doc,
                 pass: undefined,
             })
-    
+            
             await SendMail(
                 email, 
                 `Verification link`, 
                 "Email verification", 
-                `<p><a href="http://localhost:${PORT}/verify/${user.user_id}">Click here</a> to activate you account</p>`
+                `<p><a href="https://rizqimuzfulfil.herokuapp.com/verify/${user.user_id}">Click here</a> to activate you account</p>`
             )
     
             res.cookie("token", token).redirect("/profile")    
