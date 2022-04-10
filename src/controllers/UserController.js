@@ -61,15 +61,21 @@ module.exports = class User {
                 remove: /[*+~.()'"!:@]/g,
             })
     
-            let slugFind = await users.findOne({
-                slug,
-            }) 
-            
-            if(slugFind) {
-                let random = Math.random() * 10
-                slug = `${slug}${random}`
+            async function find() {
+                let slugFind = await users.findOne({
+                    slug,
+                }) 
+
+                if(slugFind) {
+                    let random = Math.ceil(Math.random() * 10)
+                    slug = `${slug}${random}`
+                    
+                    await find()
+                }
             }
     
+            await find()
+
             let pass = await generateHash(password)
     
             user = await users.create({
@@ -107,15 +113,20 @@ module.exports = class User {
     }
 
     static async verifyGET(req, res) {
-        let { user_id } = req.params
+        try {
+            let { user_id } = req.params
         
-        let user = await users.findOneAndUpdate({
-            user_id,
-        }, {
-            is_verified: true,
-        })
-
-        res.redirect("/profile")
+            let user = await users.findOneAndUpdate({
+                user_id,
+            }, {
+                is_verified: true,
+            })
+    
+            res.redirect("/profile")            
+        } catch(e) {
+            console.log(e)
+            res.redirect("/404")
+        }
     }
 
     static async SignInGET(req, res) {
